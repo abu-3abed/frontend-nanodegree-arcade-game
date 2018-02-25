@@ -2,6 +2,7 @@
 //TODO: enemies initial locations.
 //TODO: Canvas videos.
 //TODO: add multiple enemies.
+//TODO: add animation to enemies.
 //TODO: reset game after player gets to river in handleInput().
 //TODO: handle collision inside handleInput().
 
@@ -59,12 +60,12 @@ Player.prototype.handleInput = function(button) {
             player.y -= stepY;
             break;
         case 'right':
-            if((player.x + stepX) > cvsWidth)
+            if((player.x + stepX) >= cvsWidth)
                 break;
             player.x += stepX;
             break;
         case 'down':
-            if((player.y + stepY) > cvsHeight)
+            if(player.y >= 390)
                 break;
             player.y += stepY;
             break;
