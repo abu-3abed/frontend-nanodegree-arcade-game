@@ -20,7 +20,7 @@ var Enemy = function(speed,y) {
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
     this.speed = speed;
-    this.x = 0;
+    this.x = -101;
     this.y = y;
 };
 
@@ -31,6 +31,8 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
+    // console.log(dt);
+     this.x += 100 * dt;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -51,6 +53,14 @@ var Player = function () {
 
 Player.prototype = Object.create(Enemy.prototype);
 Player.prototype.constructor = Player;
+
+Player.prototype.update = function(dt){
+
+}
+
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
 Player.prototype.handleInput = function(button) {
     switch (button) {
@@ -83,11 +93,21 @@ Player.prototype.handleInput = function(button) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+var allEnemies = new Array(20);
+var enemiesLocations = new Array(48, 133.5, 219);
 
+for (var i = allEnemies.length - 1; i >= 0; i--) {
+    var l = Math.random() * 100;
+    l = Math.ceil(l % 3);
+
+    var s = Math.random() * 100;
+    s = Math.ceil(s % 3);
+
+    allEnemies[i] = new Enemy(s, enemiesLocations[l]);
+};
 
 var player = new Player();
 
-var allEnemies = new Array(new Enemy(20));
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {

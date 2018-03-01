@@ -63,7 +63,7 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
+        //reset();
         lastTime = Date.now();
         main();
     }
@@ -162,6 +162,7 @@ var Engine = (function(global) {
      */
     function reset() {
         // noop
+        
     }
 
     /* Go ahead and load all of the images we know we're going to need to
