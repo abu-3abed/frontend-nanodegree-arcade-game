@@ -32,7 +32,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
 
     // console.log(dt);
-     this.x += 100 * dt;
+     this.x += this.speed * 100 * dt;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -93,18 +93,7 @@ Player.prototype.handleInput = function(button) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = new Array(20);
-var enemiesLocations = new Array(48, 133.5, 219);
 
-for (var i = allEnemies.length - 1; i >= 0; i--) {
-    var l = Math.random() * 100;
-    l = Math.ceil(l % 3);
-
-    var s = Math.random() * 100;
-    s = Math.ceil(s % 3);
-
-    allEnemies[i] = new Enemy(s, enemiesLocations[l]);
-};
 
 var player = new Player();
 
@@ -120,3 +109,16 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+var allEnemies = new Array();
+var enemiesLocations = new Array(48, 133.5, 219);
+
+setInterval(function(){
+    var l = Math.random() * 100;
+    l = Math.floor(l % 4);
+
+    var s = Math.random() * 100;
+    s = Math.ceil(s % 3);
+
+    allEnemies.push(new Enemy(s, enemiesLocations[l]));
+},Math.random() * 1000);
