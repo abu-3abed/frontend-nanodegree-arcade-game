@@ -8,6 +8,8 @@ const stepX = 101;
 const cvsWidth = 505;
 const cvsHeight = 606;
 
+const spriteWidth = stepX;
+const spriteHeight = stepY;
 
 
 var Enemy = function(speed,y) {
@@ -56,8 +58,10 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(button) {
     switch (button) {
         case 'up':
-            if(player.y < stepY)
+            if(player.y < stepY){
+                reset();
                 break;
+            }
             player.y -= stepY;
             break;
         case 'right':
@@ -79,10 +83,6 @@ Player.prototype.handleInput = function(button) {
 
             break;
     }
-
-    if (player.y == 48) {
-        reset();
-    };
 }
 
 // Now instantiate your objects.
@@ -129,13 +129,13 @@ setInterval(function(){
     s = Math.ceil(s % 3);
 
     allEnemies.push(new Enemy(s, enemiesLocations[l]));
-},Math.random() * 1000);
+},500);
 
 function checkCollisions(body1,body2){
-    if(body1.y < body2.y + body2.sprite.height &&
-        body1.x < body2.x + body2.sprite.width &&
-        body2.y > body1.y + body1.sprite.height &&
-        body2.x > body1.x + body1.sprite.width){
+    if(body1.x < body2.x + spriteWidth &&
+        body1.x + spriteWidth > body2.x &&
+        body1.y < body2.y + spriteHeight &&
+        body1.y + spriteHeight > body2.y){
             reset();
 
     }
