@@ -1,15 +1,15 @@
 // Enemies our player must avoid
-//TODO: reset game after player gets to river in handleInput().
-//TODO: handle collision inside handleInput().
-
+// TODO: adjust stepY and stepX to correct measures.
+// TODO: check size of images after cropping.
 const stepY = 85.5;
 const stepX = 101;
 
 const cvsWidth = 505;
 const cvsHeight = 606;
 
-const spriteWidth = stepX;
-const spriteHeight = stepY;
+
+
+
 
 
 var Enemy = function(speed,y) {
@@ -22,6 +22,9 @@ var Enemy = function(speed,y) {
     this.speed = speed;
     this.x = -101;
     this.y = y;
+
+    this.height = 171;
+    this.width = 101;
 };
 
 // Update the enemy's position, required method for game
@@ -30,7 +33,9 @@ var Enemy = function(speed,y) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    //drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+    ctx.drawImage(Resources.get(this.sprite),0,72,101,85,this.x,this.y,101,85);
+    //ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 // Now write your own player class
@@ -40,8 +45,11 @@ var Player = function () {
     Enemy.call(this,0,0);
 
     this.sprite = 'images/char-boy.png';
-    this.x = 202;
-    this.y = 390;
+    this.x = 218;
+    this.y = 380;
+
+    this.height = 171;
+    this.width = 101;
 }
 
 Player.prototype = Object.create(Enemy.prototype);
@@ -52,7 +60,10 @@ Player.prototype.update = function(dt){
 }
 
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    //drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+    //ctx.drawImage(Resources.get(this.sprite),0,0,this.width,this.height,17,59,68,91);
+    ctx.drawImage(Resources.get(this.sprite),17,59,68,91,this.x,this.y,68,91);
+    //ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 Player.prototype.handleInput = function(button) {
@@ -100,7 +111,7 @@ Enemy.prototype.update = function(dt) {
     // console.log(dt);
      this.x += this.speed * 100 * dt;
 
-     checkCollisions(player,this);
+     //checkCollisions(player,this);
 };
 
 // This listens for key presses and sends the keys to your
@@ -117,7 +128,7 @@ document.addEventListener('keyup', function(e) {
 });
 
 var allEnemies = new Array();
-var enemiesLocations = new Array(48, 133.5, 219);
+var enemiesLocations = new Array(133.5, 219, 304.5);
 
 
 
@@ -132,10 +143,10 @@ setInterval(function(){
 },500);
 
 function checkCollisions(body1,body2){
-    if(body1.x < body2.x + spriteWidth &&
-        body1.x + spriteWidth > body2.x &&
-        body1.y < body2.y + spriteHeight &&
-        body1.y + spriteHeight > body2.y){
+    if(body1.x < body2.x + body2.width &&
+        body1.x + body1.width > body2.x &&
+        body1.y < body2.y + body2.height &&
+        body1.y + body1.height > body2.y){
             reset();
 
     }
