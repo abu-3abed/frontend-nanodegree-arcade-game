@@ -23,7 +23,7 @@ var Enemy = function(speed,y) {
     this.x = -101;
     this.y = y;
 
-    this.height = 171;
+    this.height = 85;
     this.width = 101;
 };
 
@@ -34,7 +34,7 @@ var Enemy = function(speed,y) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     //drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    ctx.drawImage(Resources.get(this.sprite),0,72,101,85,this.x,this.y,101,85);
+    ctx.drawImage(Resources.get(this.sprite),0,72,101,85,this.x,this.y,this.width,this.height);
     //ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -46,10 +46,10 @@ var Player = function () {
 
     this.sprite = 'images/char-boy.png';
     this.x = 218;
-    this.y = 380;
+    this.y = 390;
 
-    this.height = 171;
-    this.width = 101;
+    this.height = 68;
+    this.width = 91;
 }
 
 Player.prototype = Object.create(Enemy.prototype);
@@ -62,7 +62,7 @@ Player.prototype.update = function(dt){
 Player.prototype.render = function() {
     //drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
     //ctx.drawImage(Resources.get(this.sprite),0,0,this.width,this.height,17,59,68,91);
-    ctx.drawImage(Resources.get(this.sprite),17,59,68,91,this.x,this.y,68,91);
+    ctx.drawImage(Resources.get(this.sprite),17,59,68,91,this.x,this.y,this.height,this.width);
     //ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -111,7 +111,7 @@ Enemy.prototype.update = function(dt) {
     // console.log(dt);
      this.x += this.speed * 100 * dt;
 
-     //checkCollisions(player,this);
+     checkCollisions(player,this);
 };
 
 // This listens for key presses and sends the keys to your
@@ -153,6 +153,6 @@ function checkCollisions(body1,body2){
 }
 
 function reset() {
-    player.x = 202;
+    player.x = 218;
     player.y = 390;
 }
