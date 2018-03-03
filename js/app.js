@@ -1,8 +1,4 @@
 // Enemies our player must avoid
-//TODO: enemies initial locations.
-//TODO: Canvas videos.
-//TODO: add multiple enemies.
-//TODO: add animation to enemies.
 //TODO: reset game after player gets to river in handleInput().
 //TODO: handle collision inside handleInput().
 
@@ -11,6 +7,8 @@ const stepX = 101;
 
 const cvsWidth = 505;
 const cvsHeight = 606;
+
+
 
 var Enemy = function(speed,y) {
     // Variables applied to each of our instances go here,
@@ -26,14 +24,7 @@ var Enemy = function(speed,y) {
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
 
-    // console.log(dt);
-     this.x += this.speed * 100 * dt;
-};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -88,6 +79,10 @@ Player.prototype.handleInput = function(button) {
 
             break;
     }
+
+    if (player.y == 48) {
+        reset();
+    };
 }
 
 // Now instantiate your objects.
@@ -96,6 +91,17 @@ Player.prototype.handleInput = function(button) {
 
 
 var player = new Player();
+
+Enemy.prototype.update = function(dt) {
+    // You should multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+
+    // console.log(dt);
+     this.x += this.speed * 100 * dt;
+
+     checkCollisions(player,this);
+};
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -113,6 +119,8 @@ document.addEventListener('keyup', function(e) {
 var allEnemies = new Array();
 var enemiesLocations = new Array(48, 133.5, 219);
 
+
+
 setInterval(function(){
     var l = Math.random() * 100;
     l = Math.floor(l % 4);
@@ -122,3 +130,18 @@ setInterval(function(){
 
     allEnemies.push(new Enemy(s, enemiesLocations[l]));
 },Math.random() * 1000);
+
+function checkCollisions(body1,body2){
+    if(body1.y < body2.y + body2.sprite.height &&
+        body1.x < body2.x + body2.sprite.width &&
+        body2.y > body1.y + body1.sprite.height &&
+        body2.x > body1.x + body1.sprite.width){
+            reset();
+
+    }
+}
+
+function reset() {
+    player.x = 202;
+    player.y = 390;
+}
