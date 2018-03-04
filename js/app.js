@@ -142,6 +142,7 @@ setInterval(function(){
     allEnemies.push(new Enemy(s, enemiesLocations[l]));
 },500);
 
+// Source: Mozilla Developer Network.
 function checkCollisions(body1,body2){
     if(body1.x < body2.x + body2.width &&
         body1.x + body1.width > body2.x &&
