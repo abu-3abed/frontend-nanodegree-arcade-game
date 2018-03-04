@@ -69,7 +69,7 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(button) {
     switch (button) {
         case 'up':
-            if(player.y < stepY){
+            if(player.y <= 133.5){
                 reset();
                 break;
             }
@@ -81,7 +81,7 @@ Player.prototype.handleInput = function(button) {
             player.x += stepX;
             break;
         case 'down':
-            if(player.y >= 390)
+            if(player.y >= 391)
                 break;
             player.y += stepY;
             break;
